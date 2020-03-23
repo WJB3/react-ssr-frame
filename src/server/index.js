@@ -18,7 +18,7 @@ const server = http.createServer(function (req, res) {
     ))
 
     let path = req.url;
-    console.log(path)
+ 
     if(path.split(".").length===1){
         res.writeHead(200, { 'Content-Type': "text/html; charset=utf-8" });
     
@@ -35,7 +35,7 @@ const server = http.createServer(function (req, res) {
             </html>
         `)
         
-    }else if(path==="/index.js"){
+    }else if(path.split(".").length===2&&path.split(".")[1]==="js"){
         let filePath=Path.join("public",req.url);
         fs.readFile(filePath,function(err,data){
             if(err){
@@ -45,8 +45,20 @@ const server = http.createServer(function (req, res) {
             res.setHeader("Content-Type", "text/js");
             res.end(data);
         })
+    }else if(path.split(".").length===2&&path.split(".")[1]==="ico"){
+        let filePath=Path.join("public",req.url);
+        fs.readFile(filePath,function(err,data){
+            if(err){
+                throw err;
+            }
+            // 设置请求头，访问文件类型为icon文件
+            res.setHeader("Content-Type", "image/x-icon");
+            res.end(data);
+        })
     } 
 
 })
 
-server.listen(3000, '127.0.0.1');
+server.listen(3000, '127.0.0.1',function(){
+    console.log("node is listening...")
+});
