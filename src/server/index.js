@@ -11,16 +11,16 @@ const server = http.createServer(function (req, res) {
     let context={
         css:[]
     };
-
+ 
     const content = renderToString((
-        <StaticRouter location={req.path} context={context}>
+        <StaticRouter location={req.url} context={context}>
             {
                 Routes.map(props=>(
                         <Route {...props} />
                 ))
             }
         </StaticRouter>
-    ))
+    ));
 
     let cssStr = context.css.length ? context.css.join('\n') : '';
 
