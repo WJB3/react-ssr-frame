@@ -8,10 +8,44 @@ module.exports={
         path:Path.resolve(__dirname,'public')
     },
     module:{
-        rules:[{
-            test:/\.js?$/,
-            loader:"babel-loader",
-            exclude:/node_modules/
-        }]
+        rules:[
+            {
+                test:/\.js?$/,
+                loader:"babel-loader",
+                exclude:/node_modules/
+            },
+            {
+                test:/\.css?$/,
+                use:[
+                    'style-loader',
+                    {loader:'css-loader',options:{
+                        modules:true
+                    }},
+                ],
+                exclude:/node_modules/
+            },
+            {
+                test:/\.less?$/,
+                use:[
+                    'style-loader',
+                    {loader:'css-loader',options:{
+                        modules:true
+                    }},
+                    "less-loader"
+                ],
+                exclude:/node_modules/
+            },
+            {
+                test:/\.(sc|sa)ss?$/,
+                use:[
+                    'style-loader',
+                    {loader:'css-loader',options:{
+                        modules:true
+                    }},
+                    "sass-loader"
+                ],
+                exclude:/node_modules/
+            }
+        ]
     }
 }

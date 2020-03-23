@@ -6,13 +6,13 @@ export default [
         path:"/",
         exact:true,
         component:Hello,
-        key:"/"
+        key:"hello"
     },
     {
         path:"/link",
         exact:true,
         component:Link,
-        key:"/link"
+        key:"link"
     }
 ]
 

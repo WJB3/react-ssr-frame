@@ -17,6 +17,38 @@ module.exports={
                 test:/\.js?$/,
                 loader:"babel-loader",
                 exclude:/node_modules/
+            },
+            {
+                test:/\.css?$/,
+                use:[
+                    'isomorphic-style-loader',
+                    {loader:'css-loader',options:{
+                        modules:true
+                    }},
+                ],
+                exclude:/node_modules/
+            },
+            {
+                test:/\.less?$/,
+                use:[
+                    'isomorphic-style-loader',
+                    {loader:'css-loader',options:{
+                        modules:true
+                    }},
+                    "less-loader"
+                ],
+                exclude:/node_modules/
+            },
+            {
+                test:/\.(sc|sa)ss?$/,
+                use:[
+                    'isomorphic-style-loader',
+                    {loader:'css-loader',options:{
+                        modules:true
+                    }},
+                    "sass-loader"
+                ],
+                exclude:/node_modules/
             }
         ]
     }

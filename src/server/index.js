@@ -7,8 +7,13 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter,Route } from 'react-router-dom';
 
 const server = http.createServer(function (req, res) {
+
+    let context={
+        css:[]
+    };
+
     const content = renderToString((
-        <StaticRouter location={req.path} context={{}}>
+        <StaticRouter location={req.path} context={context}>
             {
                 Routes.map(props=>(
                         <Route {...props} />
@@ -16,6 +21,8 @@ const server = http.createServer(function (req, res) {
             }
         </StaticRouter>
     ))
+
+    let cssStr = context.css.length ? context.css.join('\n') : '';
 
     let path = req.url;
  
@@ -27,6 +34,7 @@ const server = http.createServer(function (req, res) {
             <html>
                 <head>
                     <title>REACT SSR</title>
+                    <style>${cssStr}</style>
                 </head>
                 <body>
                     <div id="root">${content}</div>
