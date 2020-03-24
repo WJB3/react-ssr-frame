@@ -8,7 +8,8 @@ export default [
         path:"/hello",
         exact:true,
         component:Hello,
-        key:"hello"
+        key:"hello",
+        loadData:Hello.loadData
     },
     {
         path:"/link",

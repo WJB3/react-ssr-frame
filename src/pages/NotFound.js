@@ -6,7 +6,8 @@ import ConnectStyle from './../component/ConnectStyle';
 @ConnectStyle(styles)
 class NotFound extends React.Component{
 
-    componentWillMount(){
+    constructor(props){
+        super(props);
         const { staticContext } = this.props;
         staticContext && (staticContext.NotFound = true);
     }

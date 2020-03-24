@@ -3,8 +3,9 @@ var fs =require("fs");
 var Path=require("path");
 import Routes from './../router/index';
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { renderToString } from 'react-dom/server';
-import { StaticRouter,Route,Switch } from 'react-router-dom';
+import { StaticRouter,Route,Switch, matchPath } from 'react-router-dom';
 
 const server = http.createServer(function (req, res) {
 
@@ -12,6 +13,21 @@ const server = http.createServer(function (req, res) {
         css:[]
     };
  
+    const matchRoutes=[];//定义匹配的路由
+
+    Routes.some(route=>{
+        //遍历匹配相应的路由
+        const match=matchPath(req.url,route);
+        //如果匹配到了，就将匹配到的路由推进matchRoutes
+        if(match){
+            matchRoutes.push(route)
+        }
+    })
+
+    matchRoutes.forEach(item=>{
+        item&&item.loadData&&item.loadData()
+    })
+
    
     const content = renderToString((
         <StaticRouter location={req.url} context={context}>
@@ -27,6 +43,8 @@ const server = http.createServer(function (req, res) {
 
     let cssStr = context.css.length ? context.css.join('\n') : '';
 
+    const helmet=Helmet.renderStatic();
+
     let path = req.url;
 
     if(path.split(".").length===1){
@@ -37,7 +55,8 @@ const server = http.createServer(function (req, res) {
                 <!DOCTYPE html>
                 <html>
                     <head>
-                        <title>REACT SSR</title>
+                        ${helmet.title.toString()}
+                        ${helmet.meta.toString()}
                         <style>${cssStr}</style>
                     </head>
                     <body>
@@ -50,7 +69,6 @@ const server = http.createServer(function (req, res) {
         }
 
         if (context.action==="REPLACE") {//404
-            console.log(context.url)
             res.writeHead(302,{
                 'Location': context.url
             })
@@ -64,7 +82,8 @@ const server = http.createServer(function (req, res) {
             <!DOCTYPE html>
             <html>
                 <head>
-                    <title>REACT SSR</title>
+                    ${helmet.title.toString()}
+                    ${helmet.meta.toString()}
                     <style>${cssStr}</style>
                 </head>
                 <body>
