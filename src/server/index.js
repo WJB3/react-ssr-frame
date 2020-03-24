@@ -28,11 +28,10 @@ const server = http.createServer(function (req, res) {
     let cssStr = context.css.length ? context.css.join('\n') : '';
 
     let path = req.url;
-    
 
     if(path.split(".").length===1){
 
-        if (context.NotFound) {
+        if (context.NotFound) {//404
             res.writeHead(404, { 'Content-Type': "text/html; charset=utf-8" });
             res.end(`
                 <!DOCTYPE html>
@@ -47,6 +46,15 @@ const server = http.createServer(function (req, res) {
                     </body>
                 </html>
             `)
+            return ;
+        }
+
+        if (context.action==="REPLACE") {//404
+            console.log(context.url)
+            res.writeHead(302,{
+                'Location': context.url
+            })
+            res.end();
             return ;
         }
          

@@ -1,6 +1,7 @@
 import Hello from './../pages/Hello';
 import Link from './../pages/Link';
 import NotFound from './../pages/NotFound';
+import Login from './../pages/Login';
 
 export default [
     {
@@ -14,6 +15,12 @@ export default [
         exact:true,
         component:Link,
         key:"link"
+    },
+    {
+        path:"/login",
+        exact:true,
+        component:Login,
+        key:"login"
     },
     {
         path:"*",

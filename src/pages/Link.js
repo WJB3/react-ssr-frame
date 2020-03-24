@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 
 export default class LinkDemo extends React.Component{
     render(){
@@ -7,6 +7,7 @@ export default class LinkDemo extends React.Component{
             <div>
                 LINK
                 <Link to="hello">hello</Link>
+                <Redirect to="/login" />
             </div>
         )
     }
