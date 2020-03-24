@@ -6,7 +6,7 @@ export default class LinkDemo extends React.Component{
         return (
             <div>
                 LINK
-                <Link to="/">hello</Link>
+                <Link to="hello">hello</Link>
             </div>
         )
     }

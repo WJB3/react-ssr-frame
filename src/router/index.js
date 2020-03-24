@@ -1,10 +1,10 @@
 import Hello from './../pages/Hello';
 import Link from './../pages/Link';
-import News from './../pages/News';
+import NotFound from './../pages/NotFound';
 
 export default [
     {
-        path:"/",
+        path:"/hello",
         exact:true,
         component:Hello,
         key:"hello"
@@ -16,10 +16,9 @@ export default [
         key:"link"
     },
     {
-        path:"/news",
-        exact:true,
-        component:News,
-        key:"news"
+        path:"*",
+        component:NotFound,
+        key:"notfound"   
     }
 ]
 
